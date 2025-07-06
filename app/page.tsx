@@ -2,20 +2,14 @@
 import { useState } from "react";
 
 export default function Home() {
-  const [todo, setTodo] = useState<any[]>([]);
-  const [newTodo, setNewTodo] = useState<string>("");
-  const [inputError, setInputError] = useState<string>("");
-
-  const createTodo = () => {
-    if (newTodo.trim() === "") {
-      setInputError("Görev açıklaması boş olamaz");
-      return;
-    }
-    setInputError("");
-    setTodo((prevTodos) => [...prevTodos, { text: newTodo, completed: false }]);
-    setNewTodo("");
+  type Todo = {
+    text: string;
+    completed: boolean;
   };
 
+  const [todo, setTodo] = useState<Todo[]>([]);
+  const [newTodo, setNewTodo] = useState<string>("");
+  const [inputError, setInputError] = useState<string>("");
   const [modal, setModal] = useState<boolean>(false);
 
   const handleDelete = (index: number) => {
@@ -43,7 +37,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 py-8 px-4 relative overflow-hidden">
-      {/* Animated background elements */}
+      {/* Animasyonlu background*/}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-rose-400/20 to-pink-600/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-tr from-blue-400/20 to-cyan-600/20 rounded-full blur-3xl animate-pulse delay-1000"></div>
@@ -109,7 +103,7 @@ export default function Home() {
                   Henüz görev yok
                 </p>
                 <p className="text-slate-400">
-                  Başlamak için ilk To-do'yu giriniz.
+                  Başlamak için To-do giriniz.
                 </p>
               </div>
             ) : (
@@ -181,7 +175,7 @@ export default function Home() {
             )}
           </div>
 
-          {/* Stats */}
+          {/*Stat*/}
           {todo.length > 0 && (
             <div className="mt-10 pt-8 border-t border-white/10">
               <div className="flex justify-between text-sm text-slate-300">
@@ -199,7 +193,7 @@ export default function Home() {
           )}
         </div>
 
-        {/* Modal */}
+        {/* Modal Yapısı*/}
         {modal && (
           <div className="fixed inset-0 flex items-center justify-center bg-black/60 backdrop-blur-sm z-50 p-4">
             <div className="bg-slate-800/90 backdrop-blur-xl rounded-3xl shadow-2xl p-8 max-w-md w-full border border-white/10 transform transition-all duration-300">
